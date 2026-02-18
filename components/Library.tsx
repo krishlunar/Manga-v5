@@ -81,3 +81,39 @@ export const Library: React.FC<LibraryProps> = ({ items, onSelect, onUpload }) =
     </div>
   );
 };
+import React from 'react';
+import { LibraryItem } from '../types';
+
+type Props = {
+  items: LibraryItem[];
+  onSelect: (id: string) => void;
+  onUpload: (file: File) => void;
+};
+
+export const Library: React.FC<Props> = ({ items, onSelect, onUpload }) => {
+  const handleFile = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files && e.target.files[0];
+    if (file) onUpload(file);
+    // reset so same file can be uploaded again
+    e.currentTarget.value = '';
+  };
+
+  return (
+    <div className="p-4">
+      <h1 className="text-2xl font-bold mb-4">Library</h1>
+      <input type="file" accept=".zip,.cbz" onChange={handleFile} />
+
+      <ul className="mt-4 space-y-2">
+        {items.length === 0 && <li className="text-gray-500">No items uploaded.</li>}
+        {items.map(item => (
+          <li key={item.id}>
+            <button className="text-left text-primary" onClick={() => onSelect(item.id)}>
+              {item.title}
+            </button>
+          </li>
+        ))}
+      </ul>
+    </div>
+  );
+};
+>>>>>>> 600820f (fix: add minimal Library, Reader and zipUtils to resolve casing/missing imports)

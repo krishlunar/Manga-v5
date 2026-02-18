@@ -37,3 +37,16 @@ export const processMangaFile = async (file: File): Promise<MangaItem> => {
     pages: pages,
   };
 };
+import { MangaItem } from '../types';
+
+// Minimal processor: create a MangaItem from the uploaded file.
+// This is a simple fallback so the app builds and can display an uploaded file's name and preview.
+export async function processMangaFile(file: File): Promise<MangaItem> {
+  const id = `${Date.now()}-${file.name}`;
+  const title = file.name.replace(/\.(zip|cbz)$/i, '');
+  const coverUrl = URL.createObjectURL(file);
+  const pages: string[] = []; // Real parsing of .zip/.cbz can be added later
+
+  return { id, title, coverUrl, pages };
+}
+>>>>>>> 600820f (fix: add minimal Library, Reader and zipUtils to resolve casing/missing imports)

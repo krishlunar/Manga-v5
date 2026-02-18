@@ -166,3 +166,24 @@ export const Reader: React.FC<ReaderProps> = ({ manga, onClose }) => {
     </div>
   );
 };
+import React from 'react';
+import { MangaItem } from '../types';
+
+type Props = {
+  manga: MangaItem;
+  onClose: () => void;
+};
+
+export const Reader: React.FC<Props> = ({ manga, onClose }) => {
+  return (
+    <div className="p-4">
+      <button onClick={onClose} className="mb-4 text-primary">Back to Library</button>
+      <h2 className="text-xl font-semibold">{manga.title}</h2>
+      <div className="mt-4">
+        <img src={manga.coverUrl} alt={manga.title} style={{ maxWidth: 320 }} />
+      </div>
+      <p className="mt-4 text-sm text-gray-600">Pages available: {manga.pages.length}</p>
+    </div>
+  );
+};
+>>>>>>> 600820f (fix: add minimal Library, Reader and zipUtils to resolve casing/missing imports)
